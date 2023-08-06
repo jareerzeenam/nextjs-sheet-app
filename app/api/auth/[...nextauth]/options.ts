@@ -5,7 +5,6 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 
 import User from '@/models/user';
 import { connectToDB } from '@/utils/database';
-import { log } from 'console';
 
 export const options: NextAuthOptions = {
     providers: [
@@ -83,7 +82,7 @@ export const options: NextAuthOptions = {
 
             } catch (error) {
                 console.log(error.message);
-                return false;
+                return false
             }
         }
 
