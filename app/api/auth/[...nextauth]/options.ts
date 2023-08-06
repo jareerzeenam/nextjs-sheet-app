@@ -3,6 +3,10 @@ import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
+import User from '@/models/user';
+import { connectToDB } from '@/utils/database';
+import { log } from 'console';
+
 export const options: NextAuthOptions = {
     providers: [
         GoogleProvider({
@@ -41,4 +45,47 @@ export const options: NextAuthOptions = {
             }
         })
     ],
+
+    callbacks: {
+
+        async session({ session }) {
+
+            const sessionUser = await User.findOne({
+                email: session?.user?.email,
+            });
+
+            session.user.id = sessionUser._id.toString();
+
+            return session;
+        },
+
+        async signIn({ profile, account }) {
+
+            try {
+                await connectToDB()
+
+                // check if a user already exists
+                const userExists = await User.findOne({
+                    email: profile?.email,
+                })
+
+                // if not create a new user and save it to the database
+                if (!userExists) {
+                    await User.create({
+                        email: profile?.email,
+                        username: profile?.name.replace(' ', '').toLowerCase(),
+                        image: profile?.picture,
+                        provider: account?.provider,
+                    });
+                }
+                return true
+
+
+            } catch (error) {
+                console.log(error.message);
+                return false;
+            }
+        }
+
+    }
 }
