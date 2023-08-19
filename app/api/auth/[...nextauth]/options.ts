@@ -6,6 +6,12 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import User from '@/models/user';
 import { connectToDB } from '@/utils/database';
 
+interface User {
+    _id: string;
+    role: string;
+    email: string;
+}
+
 export const options: NextAuthOptions = {
     providers: [
         GoogleProvider({
@@ -17,32 +23,32 @@ export const options: NextAuthOptions = {
             clientSecret: process.env.GITHUB_SECRET as string,
         }),
         // Read more about credentials & authorize here https://next-auth.js.org/configuration/providers/credentials
-        CredentialsProvider({
-            name: "Credentials",
-            credentials: {
-                username: {
-                    label: 'Username:',
-                    type: "text",
-                    placeholder: "your-username"
-                },
-                password: {
-                    label: "Password",
-                    type: "password",
-                    placeholder: "your-password"
-                }
-            },
+        // CredentialsProvider({
+        //     name: "Credentials",
+        //     credentials: {
+        //         email: {
+        //             label: 'Email:',
+        //             type: "email",
+        //             placeholder: "your-email"
+        //         },
+        //         password: {
+        //             label: "Password",
+        //             type: "password",
+        //             placeholder: "your-password"
+        //         }
+        //     },
 
-            async authorize(credentials) {
-                // TODO :: implement login functionality here 
-                const user = { id: "28", name: "Jareer", password: "nextauth" }
+        //     async authorize(credentials) {
+        //         // TODO :: implement login functionality here 
+        //         const user = { id: "28", name: "Jareer", password: "nextauth" }
 
-                if (credentials?.username === user.name && credentials?.password === user.password) {
-                    return user
-                } else {
-                    return null
-                }
-            }
-        })
+        //         if (credentials?.username === user.name && credentials?.password === user.password) {
+        //             return user
+        //         } else {
+        //             return null
+        //         }
+        //     }
+        // }),
     ],
 
     callbacks: {
@@ -53,7 +59,13 @@ export const options: NextAuthOptions = {
                 email: session?.user?.email,
             });
 
-            session.user.id = sessionUser._id.toString();
+            if (sessionUser) {
+                if (!session.user) {
+                    session.user = {} as User;
+                }
+                session.user.id = sessionUser._id.toString();
+                session.user.role = sessionUser.role;
+            }
 
             return session;
         },
