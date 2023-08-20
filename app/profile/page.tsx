@@ -3,11 +3,13 @@
 import { useSession } from 'next-auth/react';
 
 import Profile from '@/components/Profile';
+import { redirect } from 'next/navigation';
 
 const MyProfile = () => {
   const { data: session } = useSession();
 
-  if (!session?.user) return;
+  if (!session?.user) return redirect('/denied');
+  // if (!session?.user) return;
 
   return (
     <Profile

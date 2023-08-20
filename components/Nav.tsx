@@ -37,17 +37,23 @@ const Nav = () => {
       <div className="sm:flex hidden">
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
-            <Link href="/create-sheet" className="black_btn">
-              Create Sheet
-            </Link>
+            {(session?.user?.role === 'Admin' ||
+              session?.user?.role === 'Owner') && (
+              <>
+                <Link href="/create-sheet" className="black_btn">
+                  Create Sheet
+                </Link>
+                <Link href="/private" className="outline_btn">
+                  Private
+                </Link>
+              </>
+            )}
 
-            <button
-              type="button"
-              onClick={signOut}
-              className="outline_btn"
-            >
-              Sign Out
-            </button>
+            {session?.user?.role === 'Admin' && ( // Only show if user role is admin
+              <Link href="/admin" className="black_btn">
+                Admin Portal
+              </Link>
+            )}
 
             <Link href="/profile">
               <Image
@@ -58,6 +64,14 @@ const Nav = () => {
                 alt="profile"
               />
             </Link>
+
+            <button
+              type="button"
+              onClick={signOut}
+              className="outline_btn"
+            >
+              Sign Out
+            </button>
           </div>
         ) : (
           <>

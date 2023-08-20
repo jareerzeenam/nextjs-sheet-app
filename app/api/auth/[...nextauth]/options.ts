@@ -6,6 +6,7 @@ import { GithubProfile } from 'next-auth/providers/github'
 
 import User from '@/models/user';
 import { connectToDB } from '@/utils/database';
+import { redirect } from 'next/navigation'
 
 export const options: NextAuthOptions = {
     providers: [
@@ -80,6 +81,14 @@ export const options: NextAuthOptions = {
         async session({ session, token }) {
 
             if (session?.user) {
+
+                const dbUser = await User.findOne({
+                    email: session.user.email
+                })
+
+                // do not allow user in if they are not in the db
+                if (!dbUser) return redirect('api/auth/signin');
+
                 session.user.id = token.id;
                 session.user.role = token.role;
             }
