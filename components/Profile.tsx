@@ -1,3 +1,5 @@
+'use client';
+
 import { User } from 'next-auth';
 
 type ProfileProps = {

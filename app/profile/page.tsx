@@ -8,8 +8,8 @@ import { redirect } from 'next/navigation';
 const MyProfile = () => {
   const { data: session } = useSession();
 
+  // Extra protection layer (not required)
   if (!session?.user) return redirect('/denied');
-  // if (!session?.user) return;
 
   return (
     <Profile
