@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
-import CredentialsProvider from 'next-auth/providers/credentials'
+// import CredentialsProvider from 'next-auth/providers/credentials'
 import { GithubProfile } from 'next-auth/providers/github'
 
 import User from '@/models/user';
@@ -60,15 +60,18 @@ export const options: NextAuthOptions = {
         async jwt({ token, user }) {
 
             try {
-                const loggedUser = await User.findOne({
+                const dbUser = await User.findOne({
                     email: user?.email,
                 });
 
-                if (user) token.role = loggedUser.role
+                if (user) {
+                    token.role = dbUser.role
+                    token.id = dbUser._id.toString();
+                }
 
                 return token
             } catch (error) {
-                console.log('ERROR :: ', error.message);
+                console.log('ERROR :: ', (error as Error).message);
                 return false;
             }
         },
@@ -77,19 +80,8 @@ export const options: NextAuthOptions = {
         async session({ session, token }) {
 
             if (session?.user) {
-                try {
-                    const sessionUser = await User.findOne({
-                        email: session.user.email,
-                    });
-
-                    if (sessionUser) {
-                        session.user.id = sessionUser._id.toString();
-                        session.user.role = token.role;
-                    }
-
-                } catch (error) {
-                    console.log('ERROR :: ', error.message);
-                }
+                session.user.id = token.id;
+                session.user.role = token.role;
             }
 
             return session;
@@ -107,7 +99,7 @@ export const options: NextAuthOptions = {
                 if (!user) {
                     await User.create({
                         email: profile?.email,
-                        username: profile?.name.replace(' ', '').toLowerCase(),
+                        username: profile?.name?.replace(' ', '').toLowerCase(),
                         image: profile?.picture || profile?.image,
                         provider: account?.provider,
                     })
@@ -116,7 +108,7 @@ export const options: NextAuthOptions = {
                 return true
 
             } catch (error) {
-                console.log('ERROR :: ', error.message);
+                console.log('ERROR :: ', (error as Error).message);
                 return false
             }
         }

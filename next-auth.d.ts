@@ -8,17 +8,24 @@ declare module "next-auth" {
             id: string,
             role: string,
             email: string,
+            image: string
         } & DefaultSession
     }
 
     interface User extends DefaultUser {
         role: string,
     }
+
+    interface Profile {
+        // Include the error property as optional
+        name?: string;
+        picture?: string;
+    }
 }
 
 declare module "next-auth/jwt" {
     interface JWT extends DefaultJWT {
+        id: string,
         role: string,
-
     }
 }
