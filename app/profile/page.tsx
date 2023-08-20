@@ -7,10 +7,12 @@ import Profile from '@/components/Profile';
 const MyProfile = () => {
   const { data: session } = useSession();
 
+  if (!session?.user) return;
+
   return (
     <Profile
       name="My"
-      data={session ? session.user : null}
+      user={session ? session.user : null}
       desc="Welcome to your personalized profile page"
     />
   );
