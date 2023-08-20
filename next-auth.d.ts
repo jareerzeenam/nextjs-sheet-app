@@ -17,7 +17,6 @@ declare module "next-auth" {
     }
 
     interface Profile {
-        // Include the error property as optional
         name?: string;
         picture?: string;
     }
