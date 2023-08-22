@@ -1,4 +1,4 @@
-# Project Name: Sheet
+# Next.js Sheet App
 
 ## Introduction
 "Sheet" is a web application designed to streamline the process of collecting and distributing money within a group of friends participating in a fund collection game. The app allows users to register using their GitHub or Google accounts. The primary use case of the app is to manage a fund collection game where a group of 10 friends contribute money on a daily basis for a specified number of days. The app automates the process of collecting and distributing money among the participants based on a predefined sequence of positions.
