@@ -1,34 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project Name: Sheet
 
-## Getting Started
+## Introduction
+"Sheet" is a web application designed to streamline the process of collecting and distributing money within a group of friends participating in a fund collection game. The app allows users to register using their GitHub or Google accounts. The primary use case of the app is to manage a fund collection game where a group of 10 friends contribute money on a daily basis for a specified number of days. The app automates the process of collecting and distributing money among the participants based on a predefined sequence of positions.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### User Registration and Authentication
+Users can register and log in using their GitHub or Google accounts, ensuring a secure and seamless authentication process.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Fund Collection Game
+The core feature of the app is the fund collection game. Here's how it works:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Initialization**: A group of 10 friends participate in the game. The participants contribute a set amount of money (e.g., Rs. 1000) each day.
+2. **Position Assignment**: At the beginning of the game, a draw is shuffled to assign positions. One participant is assigned the first place, another the second place, and so on, up to the tenth place.
+3. **Daily Collection**: The game lasts for a specified number of days (e.g., 10 days). Each day, the participants contribute their respective amounts to the owner of the event. The owner is responsible for collecting and managing the funds.
+4. **Distribution**: After the specified number of days, the owner distributes the collected money. The participant in the first place receives the entire fund on the first distribution day, the participant in the second place receives the fund on the second distribution day, and so on.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Participant Dashboard
+Users can view their assigned position, track the amount they have settled, and see their pending amount.
 
-## Learn More
+### Owner's Management Tools
+The owner of the event has access to tools that allow them to manage the collection process efficiently:
+- Notifications: The owner can send reminders to participants who haven't paid.
+- Collection Tracking: The owner can track which participants have settled and which ones have pending amounts.
+- Distribution Management: The owner initiates fund distributions on the specified days.
 
-To learn more about Next.js, take a look at the following resources:
+## Technology Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Frontend**: Next.js 13, React.js
+- **Backend**: MongoDB (for user data and game records)
+- **Styling**: Tailwind CSS
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Setup Instructions
 
-## Deploy on Vercel
+1. **Clone the Repository**: Clone this repository to your local machine.
+   ```
+   git clone https://github.com/jareerzeenam/nextjs-sheet-app.git
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install Dependencies**: Navigate to the project directory and install the necessary dependencies.
+   ```
+   cd nextjs-sheet-app
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. **Environment Variables**: Create a `.env.local` file in the project root and add the required environment variables.
+   ```
+   NEXTAUTH_SECRET= # openssl rand -base64 32 //https://next-auth.js.org/configuration/options
+   GITHUB_ID= # https://next-auth.js.org/providers/github
+   GITHUB_SECRET=
+   GOOGLE_CLIENT_ID= # https://next-auth.js.org/providers/google
+   GOOGLE_CLIENT_SECRET=
+   MONGO_URI=your_mongodb_uri
+   MONGO_DB_NAME=your_mongodb_name
+   ```
+
+4. **Run the Application**: Start the development server to run the app locally.
+   ```
+   npm run dev
+   ```
+
+5. **Access the App**: Open your web browser and navigate to `http://localhost:3000` to access the app.
+
+## Conclusion
+
+"Sheet" simplifies the process of collecting and distributing funds among friends participating in a fund collection game. By automating the collection and distribution process, the app ensures a fair and organized experience for all participants. The user-friendly interface and management tools make it easy for both participants and the owner to engage in the game without hassle.
