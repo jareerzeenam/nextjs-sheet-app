@@ -38,6 +38,14 @@ export default withAuth(
             )
         }
 
+        if (request.nextUrl.pathname.startsWith('/sheets/create')
+            && request.nextauth.token?.role !== "Admin"
+            && request.nextauth.token?.role !== "Owner") {
+            return NextResponse.rewrite(
+                new URL("/denied", request.url)
+            )
+        }
+
     },
     {
         callbacks: {
@@ -52,5 +60,5 @@ export default withAuth(
  */
 
 export const config = {
-    matcher: ["/create-sheet", "/profile", "/private", "/admin"],
+    matcher: ["/create-sheet", "/profile", "/private", "/admin", "/sheets", "/sheets/create"],
 }

@@ -40,8 +40,8 @@ const Nav = () => {
             {(session?.user?.role === 'Admin' ||
               session?.user?.role === 'Owner') && (
               <>
-                <Link href="/create-sheet" className="black_btn">
-                  Create Sheet
+                <Link href="/sheets" className="black_btn">
+                  Sheets
                 </Link>
                 <Link href="/private" className="outline_btn">
                   Private
