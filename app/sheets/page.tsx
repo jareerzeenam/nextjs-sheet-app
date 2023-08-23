@@ -1,5 +1,6 @@
 'use client';
 
+import SheetCard from '@/components/SheetCard';
 import { Sheet } from '@/typings';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -27,13 +28,11 @@ const Sheets = () => {
       </Link>
       <div className="flex flex-wrap gap-5">
         {allSheets.map((sheet: Sheet) => (
-          <div key={sheet._id} className="p-5 shadow bg-white">
-            <p className="font-bold">{sheet.name}</p>
-            <p>Belongs to : {sheet.creator?.email}</p>
-            <p>Rs.{sheet.amount}</p>
-            <p>Start: {sheet.startDate}</p>
-            <p>End : {sheet.endDate}</p>
-          </div>
+          <SheetCard
+            key={sheet._id}
+            sheet={sheet}
+            handleTagClick={() => {}}
+          />
         ))}
       </div>
     </div>
