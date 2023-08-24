@@ -25,7 +25,7 @@ const Nav = () => {
       <Link href="/" className="flex gap-2 flex-center">
         <Image
           src="/assets/images/logo.png"
-          alt="PromptHub Logo"
+          alt="Sheet Logo"
           width={30}
           height={30}
           className="object-contain"

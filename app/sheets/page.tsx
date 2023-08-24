@@ -28,11 +28,7 @@ const Sheets = () => {
       </Link>
       <div className="flex flex-wrap gap-5">
         {allSheets.map((sheet: Sheet) => (
-          <SheetCard
-            key={sheet._id}
-            sheet={sheet}
-            handleTagClick={() => {}}
-          />
+          <SheetCard key={sheet._id} sheet={sheet} />
         ))}
       </div>
     </div>

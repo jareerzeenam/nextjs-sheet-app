@@ -18,7 +18,7 @@ const UpdateSheet = () => {
   });
 
   useEffect(() => {
-    const getPromptDetails = async () => {
+    const getSheetDetails = async () => {
       const response = await fetch(`/api/sheets/${sheetId}`);
       const data = await response.json();
 
@@ -31,16 +31,44 @@ const UpdateSheet = () => {
       });
     };
 
-    if (sheetId) getPromptDetails();
+    if (sheetId) getSheetDetails();
   }, [sheetId]);
+
+  // UPDATE sheet
+  const updateSheet = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    if (!sheetId) return alert('Sheet ID not found !');
+
+    try {
+      const response = await fetch(`/api/sheets/${sheetId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          name: sheet.name,
+          amount: sheet.amount,
+          startDate: sheet.startDate,
+          endDate: sheet.endDate,
+        }),
+      });
+
+      if (response.ok) {
+        router.push('/profile');
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <SheetForm
-      type="Edit"
+      type="Update"
       sheet={sheet}
       setSheet={setSheet}
       submitting={submitting}
-      handleSubmit={() => {}}
+      handleSubmit={updateSheet}
     />
   );
 };

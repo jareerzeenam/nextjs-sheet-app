@@ -31,14 +31,13 @@ const Profile: React.FC<ProfileProps> = ({
       <p className="desc text-left">{user?.email}</p>
       <p className="desc text-left">{desc}</p>
 
-      <div className="mt-10 prompt_layout">
+      <div className="flex flex-wrap gap-5">
         {data.map((sheet) => (
           <SheetCard
             key={sheet._id}
             sheet={sheet}
             handleEdit={() => handleEdit && handleEdit(sheet)}
             handleDelete={() => handleDelete && handleDelete(sheet)}
-            handleTagClick={() => {}}
           />
         ))}
       </div>

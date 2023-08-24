@@ -59,7 +59,13 @@ const SheetForm = ({
           </span>
 
           <input
-            value={sheet.startDate}
+            value={
+              sheet.startDate
+                ? new Date(sheet.startDate)
+                    .toISOString()
+                    .split('T')[0]
+                : ''
+            }
             onChange={(e) =>
               setSheet({ ...sheet, startDate: e.target.value })
             }
@@ -76,7 +82,11 @@ const SheetForm = ({
           </span>
 
           <input
-            value={sheet.endDate}
+            value={
+              sheet.endDate
+                ? new Date(sheet.endDate).toISOString().split('T')[0]
+                : ''
+            }
             onChange={(e) =>
               setSheet({ ...sheet, endDate: e.target.value })
             }
@@ -97,7 +107,7 @@ const SheetForm = ({
             disabled={submitting}
             className="px-5 py-1.5 text-sm bg-blue-700 rounded-full text-white"
           >
-            {submitting ? `${type}ing...` : type}
+            {submitting ? `${type}...` : type}
           </button>
         </div>
       </form>
