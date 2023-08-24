@@ -32,7 +32,25 @@ const MyProfile = () => {
   };
 
   const handleDelete = async (sheet) => {
-    alert('delete');
+    const hasConfirmed = confirm(
+      'Are you sure you want to delete this sheet?'
+    );
+
+    if (hasConfirmed) {
+      try {
+        await fetch(`/api/sheets/${sheet._id.toString()}`, {
+          method: 'DELETE',
+        });
+
+        const filteredSheets = sheets.filter(
+          (s) => s._id !== sheet._id
+        );
+
+        setSheets(filteredSheets);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
