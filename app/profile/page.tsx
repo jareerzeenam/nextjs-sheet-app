@@ -28,7 +28,7 @@ const MyProfile = () => {
   }, [session]);
 
   const handleEdit = (sheet) => {
-    router.push(`/sheets/update?id=${sheet._id}`);
+    router.push(`/sheets/edit?id=${sheet._id}`);
   };
 
   const handleDelete = async (sheet) => {

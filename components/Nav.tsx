@@ -37,16 +37,14 @@ const Nav = () => {
       <div className="sm:flex hidden">
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
+            <Link href="/sheets" className="black_btn">
+              Sheets
+            </Link>
             {(session?.user?.role === 'Admin' ||
               session?.user?.role === 'Owner') && (
-              <>
-                <Link href="/sheets" className="black_btn">
-                  Sheets
-                </Link>
-                <Link href="/private" className="outline_btn">
-                  Private
-                </Link>
-              </>
+              <Link href="/private" className="outline_btn">
+                Private
+              </Link>
             )}
 
             {session?.user?.role === 'Admin' && ( // Only show if user role is admin

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import SheetForm from '@/components/SheetForm';
 
-const UpdateSheet = () => {
+const EditSheet = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const sheetId = searchParams.get('id');
@@ -64,7 +64,7 @@ const UpdateSheet = () => {
 
   return (
     <SheetForm
-      type="Update"
+      type="Edit"
       sheet={sheet}
       setSheet={setSheet}
       submitting={submitting}
@@ -73,4 +73,4 @@ const UpdateSheet = () => {
   );
 };
 
-export default UpdateSheet;
+export default EditSheet;
