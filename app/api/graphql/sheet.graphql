@@ -1,4 +1,12 @@
-query getHello {
-  hello
-  getAllSheets
+query getAllSheets {
+  getAllSheets {
+    data {
+      id
+      name
+      amount
+      startDate
+      endDate
+    }
+    total
+  }
 }
