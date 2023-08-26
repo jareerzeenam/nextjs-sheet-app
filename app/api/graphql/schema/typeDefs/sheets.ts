@@ -1,11 +1,18 @@
 import { gql } from "graphql-tag";
 
 const typeDefs = gql`
-    type Query {
-      hello: String
-      getAllSheets: String
-    }
-  `;
+
+  type SheetList {
+    data: [Sheet]
+    total: Int
+  }
+
+  type Query {
+    hello: String
+    getAllSheets: SheetList
+  }
+
+`;
 
 export default typeDefs
 

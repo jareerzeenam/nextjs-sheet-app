@@ -7,8 +7,8 @@ import resolvers from './schema/resolvers'
 import typeDefs from './schema/typeDefs'
 
 const server = new ApolloServer({
-    resolvers,
     typeDefs,
+    resolvers,
 });
 
 const handler = startServerAndCreateNextHandler<NextRequest>(server as any, {

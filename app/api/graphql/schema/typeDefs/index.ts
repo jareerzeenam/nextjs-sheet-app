@@ -1,10 +1,11 @@
 const { mergeTypeDefs } = require('@graphql-tools/merge');
 
+import core from './core';
 import sheets from './sheets';
 
-const allTypeDefs = [];
+const allTypeDefs = [] as any;
 
-const modules = [sheets];
+const modules = [core, sheets];
 modules.forEach((module) => {
     allTypeDefs.push(module);
 });

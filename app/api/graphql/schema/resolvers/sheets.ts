@@ -1,10 +1,10 @@
+import { getAllSheets } from '@/app/api/services/sheets'
+
 const sheets = {
     Query: {
         hello: () => "Hello World!",
 
-        getAllSheets: async () => {
-            return "Sheets"
-        }
+        getAllSheets: async () => getAllSheets()
     },
 };
 
