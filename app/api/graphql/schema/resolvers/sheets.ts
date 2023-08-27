@@ -8,4 +8,4 @@ const sheets = {
     },
 };
 
-export default sheets
+export default sheets;

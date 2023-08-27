@@ -1,4 +1,4 @@
-import { SheetRepository } from '../repositories/sheet-repository'
+import { SheetRepository } from '@/app/api/repositories/sheet-repository'
 
 export const getAllSheets = async () => {
 
