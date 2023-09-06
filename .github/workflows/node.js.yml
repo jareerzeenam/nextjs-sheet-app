@@ -2,11 +2,11 @@ name: NodeJS with Grunt
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ['master']
   pull_request:
-    branches: [ "master" ]
+    branches: ['master']
     types:
-      - opened  # Trigger the workflow when a PR is opened
+      - opened # Trigger the workflow when a PR is opened
 
 jobs:
   build:
@@ -17,16 +17,16 @@ jobs:
         node-version: [20]
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Build
-      run: |
-        npm install
-        grunt
-        touch .env
-        echo "${{ secrets.DEV_ENV }}" > .env
+      - name: Build
+        run: npm install
+
+      - run: |
+          touch .env
+          echo "${{ secrets.DEV_ENV }}" > .env
