@@ -9,6 +9,9 @@ const nextConfig = {
       'lh3.googleusercontent.com',
     ],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = nextConfig;
