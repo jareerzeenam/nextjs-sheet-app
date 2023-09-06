@@ -60,21 +60,25 @@ export const options: NextAuthOptions = {
 
         async jwt({ token, user }) {
 
-            try {
-                const dbUser = await User.findOne({
-                    email: user?.email,
-                });
+            if (token && user) {
+                try {
+                    const dbUser = await User.findOne({
+                        email: user?.email,
+                    });
 
-                if (user) {
-                    token.role = dbUser.role
-                    token.id = dbUser._id.toString();
+                    if (user) {
+                        token.role = dbUser.role
+                        token.id = dbUser._id.toString();
+                    }
+
+                    return token
+                } catch (error) {
+                    console.log('ERROR :: ', (error as Error).message);
+                    return false;
                 }
-
-                return token
-            } catch (error) {
-                console.log('ERROR :: ', (error as Error).message);
-                return false;
             }
+
+            return false
         },
 
         // If you want to use role in client components
