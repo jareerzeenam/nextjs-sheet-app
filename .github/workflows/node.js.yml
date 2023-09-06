@@ -10,7 +10,6 @@ on:
 
 jobs:
   build:
-
     runs-on: [self-hosted, example]
 
     strategy:
@@ -19,16 +18,15 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci --legacy-peer-deps
-    - run: npm run build --if-present
-    - run: pm2 restart example
-
-    - run: |
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: |
           touch .env
           echo "${{ secrets.DEV_ENV }}" > .env
+      - run: npm ci --legacy-peer-deps
+      - run: npm run build --if-present
+      - run: pm2 restart example
